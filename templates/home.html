@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <q>You need to take your enemy's side if you're going to see things the way they do.</q><br> Game of Thrones
+  
+  <h4>Share your thoughts with us...</h4><a class="add-link" href="{% url 'post_form' %}">Add post</a>
+
+    
+      
+   
+    
+  
+<section class="main">
+  <ul class = "content">
+   <li><a href="/category/Reviews/"><h1 class="rev">Reviews</h1></a></li>
+    <li><a href="/category/Articles/"><h1 class="art">Articles</h1></a></li>
+    <li><a href="/category/News/"><h1 class="news">News</h1></a></li>
+
+  </ul>
+</section>
+</div>
+{% endblock content %}

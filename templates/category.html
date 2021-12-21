@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+<h1>{{ cats }}</h1>
+<a class="add-link" href="{% url 'post_form' %}">Add post</a>
+
+
+
+{% for post in category_posts %}
+    
+    <h2 color="#fff"><a class="post-title" href="{% url 'post_detail' post.pk %}">{{ post.title }} - {{post.author}}</a></h2>
+    
+{% endfor %}
+</div>
+
+{% endblock content %}

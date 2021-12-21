@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+<div class="container">
+    {% if request.user.is_authenticated %}
+      <h1>Add Blog Post</h1>
+
+      <form method="POST">
+          {% csrf_token %}
+          {{ form.media }}
+          {{ form.as_p }}
+          <button>Post</button>
+      </form>
+    {% else %}
+       <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,38 @@
+<!-- templates/post_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="post-entry">
+    <h2>{{ post.title }} - {{post.author}}</h2>
+    
+    <p>{{ post.body }}</p><br>
+    <p>Published: {{ post.date }}</p>
+    
+    {% if request.user.is_authenticated and user.id == post.author.id %}
+    <ul class="details">
+      <li><a href="{% url 'update_post' post.pk %}" class="edit">Edit</a></li>
+      <li><a href="{% url 'delete_post' post.pk %}" class="delete">Delete</a></li>
+    </ul>
+    {% endif %}
+    
+<br>
+    <h2>Comments...</h2>
+    <a href="{% url 'add_comment' post.pk %}" class="add-comment">Add Comment</a><br><br>
+    {% if not post.comments.all %}
+
+        No comments yet...<br>
+       
+    {% else %}
+     
+        {% for comment in post.comments.all %}
+            {{comment.name}}-
+            {{comment.date_added}}
+            <br>
+            {{comment.body}}
+        {% endfor %}
+    {% endif %}
+<br>
+  </div>
+    
+  
+{% endblock content %}

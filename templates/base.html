@@ -1,0 +1,46 @@
+{% load static %}
+<!-- templates/base.html -->
+<html>
+  <head>
+    <title>The Quest</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+       
+         <div class="header-inner">
+       <a href="{% url 'home' %}"><img src="/static/img/logo.png" class="logo"></a>
+       <nav class="nav">
+         <a class="nav_link" href="{% url 'home' %}">Home</a>
+         <a class="nav_link" href="/category/Reviews/">Reviews</a>
+         <a class="nav_link" href="/category/News/">News</a>
+         <a class="nav_link" href="/category/Articles/">Articles</a>
+         {% if request.user.is_authenticated %}
+             <a class="nav_link" href="{% url 'logout' %}">Logout</a>
+         {% else %}
+             <a class="nav_link" href="{% url 'login' %}">Login</a>
+         {% endif %}
+         
+       </nav>
+       </div>
+       </div>
+    {% if request.user.is_authenticated %}
+      
+       <!--<div class="add"><h3><a href="{% url 'post_form' %}">Add post</a></h3></div>-->
+       
+    {% else %}
+      <!--<h3><a href="{% url 'login' %}">Add post</a></h3>-->
+      <!--<h4><a href="{% url 'login' %}">Login</a></h4>-->
+    {% endif %}
+      
+      
+    </header>
+
+{% block content %}
+{% endblock content %}
+
+<footer>
+  <h4>Created by <a href="https://twitter.com/VlaDis005">Me</a></h4>
+</footer>
+  </body>
