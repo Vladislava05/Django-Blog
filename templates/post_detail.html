@@ -5,7 +5,7 @@
   <div class="post-entry">
     <h2>{{ post.title }} - {{post.author}}</h2>
     
-    <p>{{ post.body }}</p><br>
+    <p>{{ post.body| safe }}</p><br>
     <p>Published: {{ post.date }}</p>
     
     {% if request.user.is_authenticated and user.id == post.author.id %}
