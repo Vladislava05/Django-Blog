@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, FormView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Post, Comment
+from .models import Post, Comment, Profile
 from django.utils import timezone
 from django.urls import reverse_lazy
 from django.contrib.auth import login
@@ -69,8 +69,6 @@ class CustomLoginView(LoginView):
 def CategoryView(request, cats):
     category_posts = Post.objects.filter(category=cats)
 
-    
-    
     return render(request,'category.html', {'cats':cats, 'category_posts':category_posts})
     
 
@@ -81,3 +79,13 @@ class AddCommentView(CreateView, LoginRequiredMixin):
     fields = '__all__'
 
     success_url = reverse_lazy('home')
+
+class ProfileView(DetailView):
+    model = Profile
+    template_name = 'profile_page.html'
+
+    def get_context_data(self, *args, **kwargs):
+        user = self.request.user
+        context = super(ProfileView, self).get_context_data(*args, **kwargs)
+        
+        return context

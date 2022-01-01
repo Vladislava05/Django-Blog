@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% block content %} 
+<div class="container">
+<div class="profile__inner">
+<div class="ava">
+{% if profile.avatar %} 
+<img src="{{ profile.avatar.url }}" height=200, width=200><br><br>
+{% else %} 
+<img src="https://img.icons8.com/ios/200/000000/user-male-circle.png"/><br><br>
+{% endif %}
+</div>
+<div class="info">
+<p><strong>Username:</strong> {{profile.user.username}}</p><br>
+{% if profile.bio %} 
+<p><strong>Bio:</strong> {{profile.bio}}</p><br>
+{% endif %} 
+{% if profile.email %} 
+<p><strong>Email:</strong> {{profile.email}}</p><br>
+{% endif %} 
+{% if profile.twitter %} 
+<p><strong>Twitter:</strong> {{profile.twitter}}</p>
+{% endif %}
+</div>
+</div><br>
+{% if user.id == profile.user.id %}
+<button class="edit__profile">Edit</button>
+{% endif %}
+</div>
+{% endblock content %}

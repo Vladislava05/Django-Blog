@@ -253,3 +253,9 @@
     text-decoration: none;
     color:rgb(70, 164, 218);
   }
+
+  .profile__inner{
+    display:flex;
+    justify-content: center;
+    
+  }
