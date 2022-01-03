@@ -122,26 +122,15 @@
     
   
   }
-  .details{
-    display:flex;
-    list-style-type: none;
-    flex-direction: row;
+  .post-entry-inner{
+    display: block;
+    
     
   }
   .details li{
     margin-right: 1rem;
   }
-
-  .delete{
-    text-decoration:none;
-    color:rgb(177, 92, 92);
-  }
-
-  .edit{
-    text-decoration:none;
-    color:rgb(145, 134, 240);
-  }
-  
+ 
   
    
   .post-entry {
@@ -163,10 +152,6 @@
     font-weight: 400;
   }
    
-  .post-entry h2 a:hover {
-    color: rgb(129, 88, 196);
-  }
-
   .post-entry button a{
     text-decoration: none;
     
@@ -254,12 +239,35 @@
     color:rgb(70, 164, 218);
   }
 
-  .profile__inner{
-    display:flex;
-    justify-content: center;
-    
+  input[value="Edit"]{
+      background-color:rgb(103, 150, 236);
+      color: #fff;
+      border-radius: 2px;
+      border: none;
+      font-size: 18px;
+  }
+  
+  input[value="Delete"]{
+    background-color: crimson;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 18px;
+    border: none;
   }
 
-@media(max-height="700"){
+  input[value="Post"]{
+    background-color:rgb(103, 150, 236);
+    color: #fff;
+    border-radius: 2px;
+    font-size: 18px;
+    border: none;
+  } 
   
-}
+  input[value="Update"]{
+    background-color:rgb(103, 150, 236);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-size: 18px;
+
+  }

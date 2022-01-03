@@ -3,17 +3,20 @@
 
 {% block content %}
   <div class="post-entry">
+   
     <h2>{{ post.title }} - {{post.author}}</h2>
+    
     
     <p>{{ post.body| safe }}</p><br>
     <p>Published: {{ post.date }}</p>
-    
     {% if request.user.is_authenticated and user.id == post.author.id %}
-    <ul class="details">
-      <li><a href="{% url 'update_post' post.pk %}" class="edit"><input type="submit" value="Edit"></a></li>
-      <li><a href="{% url 'delete_post' post.pk %}" class="delete"><input type="submit" value="Delete"></a></li>
-    </ul>
+    
+      <a href="{% url 'update_post' post.pk %}"><input type="submit" value="Edit"></a>
+      <a href="{% url 'delete_post' post.pk %}"><input type="submit" value="Delete"></a>
+    
+
     {% endif %}
+    
     
 <br>
     <h2>Comments...</h2>
