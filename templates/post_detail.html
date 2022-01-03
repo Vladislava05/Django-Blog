@@ -10,8 +10,8 @@
     
     {% if request.user.is_authenticated and user.id == post.author.id %}
     <ul class="details">
-      <li><a href="{% url 'update_post' post.pk %}" class="edit">Edit</a></li>
-      <li><a href="{% url 'delete_post' post.pk %}" class="delete">Delete</a></li>
+      <li><a href="{% url 'update_post' post.pk %}" class="edit"><input type="submit" value="Edit"></a></li>
+      <li><a href="{% url 'delete_post' post.pk %}" class="delete"><input type="submit" value="Delete"></a></li>
     </ul>
     {% endif %}
     

@@ -23,7 +23,7 @@
 </div>
 </div><br>
 {% if user.id == profile.user.id %}
-<button class="edit__profile"><a href="{% url 'edit_profile' profile.pk %}">Edit</a></button>
+<a href="{% url 'edit_profile' profile.pk %}"><input type="submit" value="Edit"></a>
 {% endif %}
 </div>
 {% endblock content %}

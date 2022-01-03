@@ -9,7 +9,7 @@
           {% csrf_token %}
           {{ form.media }}
           {{ form.as_p }}
-          <button>Post</button>
+          <input type="submit" value="Post">
       </form>
     {% else %}
        <a href="{% url 'login' %}">Login</a>
