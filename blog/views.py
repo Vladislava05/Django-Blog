@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Comment, Profile
+from .forms import ProfileForm
 from django.utils import timezone
 from django.urls import reverse_lazy
 from django.contrib.auth import login
@@ -89,3 +90,21 @@ class ProfileView(DetailView):
         context = super(ProfileView, self).get_context_data(*args, **kwargs)
         
         return context
+
+class CreateProfileView(CreateView):
+    model = Profile
+    template_name = 'create_profile.html'
+    fields = ['avatar', 'bio', 'email',  'twitter']
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('home')
+
+class EditProfileView(UpdateView):
+    model = Profile
+    template_name = 'edit_profile.html'
+    form_class=ProfileForm
+    
+    success_url = reverse_lazy('home')
+    
