@@ -201,7 +201,14 @@
     color: #fff;
     position: relative;
   }
-
+  .search_form{
+    display: inline-block;
+    margin: 20px 50px;
+    vertical-align: top;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+  }
   .nav_link:after{
     display: block;
     display: none;

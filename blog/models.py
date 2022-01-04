@@ -51,7 +51,7 @@ class Comment(models.Model):
         Post, related_name="comments",
         on_delete=models.CASCADE, 
     )
-    name = models.CharField(max_length=200)
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField()
     date_added=models.DateTimeField(auto_now_add=True)
 

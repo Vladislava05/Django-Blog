@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Comment, Profile
-from .forms import ProfileForm, CommentForm
+from .forms import ProfileForm, CommentForm, PostForm
 from django.utils import timezone
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login
@@ -17,8 +17,21 @@ class BlogListView(ListView):
     model = Post
     template_name = 'home.html'
     context_object_name = 'posts'
-    
    
+class SearchResultsView(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'search_results.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = context['posts'].filter(author=self.request.user)
+        
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['posts'] = context['posts'].filter(title__icontains=search_input)
+        context['search_input'] = search_input
+
+        return context
 
 class BlogDetailView(DetailView):
     model = Post
@@ -36,7 +49,12 @@ class BlogDetailView(DetailView):
 class AddPostView(CreateView, LoginRequiredMixin):
     model = Post
     template_name = 'post_form.html'
-    fields = '__all__'
+    form_class=PostForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(AddPostView, self).form_valid(form)
+
 
 class UpdatePostView(UpdateView, LoginRequiredMixin):
     model = Post
@@ -100,7 +118,10 @@ class AddCommentView(CreateView, LoginRequiredMixin):
     
     def form_valid(self, form):
          form.instance.post_id = self.kwargs['pk']
-         return super().form_valid(form)
+         form.instance.name = self.request.user
+         return super(AddCommentView, self).form_valid(form)
+    
+
         
     success_url = reverse_lazy('home')
 

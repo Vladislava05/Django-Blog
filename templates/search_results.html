@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %} 
+<div class="container">
+<h1>Search Results</h1>
+
+{% for post in posts %}
+<h2><a class="post-title" href="{% url 'post_detail' post.pk %}">{{ post.title }} - {{post.author}}</a></h2>
+{% endfor %}
+{% if not posts.all %} 
+ <h2>Nothing found...</h2>
+{% endif %}
+</div>
+{% endblock content %}

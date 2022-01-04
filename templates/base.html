@@ -13,6 +13,11 @@
          <div class="header-inner">
        <a href="{% url 'home' %}"><img src="/static/img/logo.png" class="logo"></a>
        <nav class="nav">
+         {% if user.is_authenticated %}
+        <form class="search_form" action="{% url 'search_results' %}">
+          <input type="text" name="search-area" value="{{ search_input }}" autocomplete="off"><input type="submit" value="Search">
+        </form>
+        {% endif %}
          <a class="nav_link" href="{% url 'home' %}">Home</a>
          {% if user.is_authenticated and user.profile.id %} 
          <a class="nav_link" href="{% url 'profile' user.profile.id %}">Profile</a>
