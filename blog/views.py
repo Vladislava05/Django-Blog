@@ -5,11 +5,12 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Comment, Profile
-from .forms import ProfileForm
+from .forms import ProfileForm, CommentForm
 from django.utils import timezone
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 
 
 class BlogListView(ListView):
@@ -22,6 +23,15 @@ class BlogListView(ListView):
 class BlogDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
+    def get_context_data(self, *args, **kwargs):
+        context = super(BlogDetailView, self).get_context_data(**kwargs)
+        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        total_dislikes = stuff.total_dislikes()
+        context['total_dislikes'] = total_dislikes
+        context['total_likes'] = total_likes
+        return context
+
 
 class AddPostView(CreateView, LoginRequiredMixin):
     model = Post
@@ -71,14 +81,27 @@ def CategoryView(request, cats):
     category_posts = Post.objects.filter(category=cats)
 
     return render(request,'category.html', {'cats':cats, 'category_posts':category_posts})
-    
+
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))  
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
+
+def DislikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))  
+    post.dislikes.add(request.user)
+    return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
 
 
 class AddCommentView(CreateView, LoginRequiredMixin):
     model = Comment
     template_name = 'comment.html'
-    fields = '__all__'
-
+    form_class = CommentForm
+    
+    def form_valid(self, form):
+         form.instance.post_id = self.kwargs['pk']
+         return super().form_valid(form)
+        
     success_url = reverse_lazy('home')
 
 class ProfileView(DetailView):

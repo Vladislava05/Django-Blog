@@ -15,8 +15,14 @@
   margin: 2rem auto;
   text-align: center;
 }
-
-
+  .info-container{
+    
+    width: 100%;
+    max-width: 200px;
+    margin: 2rem auto;
+    text-align: start;
+    word-break: break-all;
+  }
 
    
   header {
@@ -180,6 +186,7 @@
   button{
     border-radius: 5px;
   }
+  
 
   .nav{
     font-size: 14px;
@@ -220,24 +227,6 @@
     justify-content: space-between;
   }
   
-  footer{
-    background-color:rgba(20, 20, 20, 0.692);
-    max-width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-  }
-
-  footer{
-    text-align:center;
-  }
-
-  footer a{
-    text-decoration: none;
-    color:rgb(70, 164, 218);
-  }
 
   input[value="Edit"]{
       background-color:rgb(103, 150, 236);

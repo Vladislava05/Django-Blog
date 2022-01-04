@@ -1,6 +1,6 @@
 <!-- templates/post_detail.html -->
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
   <div class="post-entry">
    
@@ -15,12 +15,19 @@
       <a href="{% url 'delete_post' post.pk %}"><input type="submit" value="Delete"></a>
     
 
-    {% endif %}
-    
-    
+    {% endif %}<br><br>
+    <form action="{% url 'like_post' post.pk %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" name="post_id" value="{{ post.id }}"><img src="{% static 'img/thumb-up.png' %}"></button> - {{total_likes}}
+    </form>
+    <form action="{% url 'dislike_post' post.pk %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" name="post_id" value="{{ post.id }}"><img src="{% static 'img/thumb-down.png' %}"></button> - {{total_dislikes}}
+    </form>
+  
 <br>
     <h2>Comments...</h2>
-    <a href="{% url 'add_comment' post.pk %}" class="add-comment">Add Comment</a><br><br>
+    <a href="{% url 'add_comment' post.pk %}" class="add-comment">Add Comment</a><br><br><br><br>
     {% if not post.comments.all %}
 
         No comments yet...<br>
@@ -28,10 +35,10 @@
     {% else %}
      
         {% for comment in post.comments.all %}
-            {{comment.name}}-
-            {{comment.date_added}}
+            <p><strong style="color:skyblue">{{comment.name}}-
+            {{comment.date_added}}</strong></p>
             <br>
-            {{comment.body}}
+            {{comment.body | safe}}<br><br>
         {% endfor %}
     {% endif %}
 <br>

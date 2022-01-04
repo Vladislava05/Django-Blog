@@ -16,7 +16,8 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
     body = RichTextField(blank=True, null=True)
-    
+    likes = models.ManyToManyField(User, related_name='blog_posts')
+    dislikes = models.ManyToManyField(User, related_name='blog_posts_dislike')
     date = models.DateTimeField(auto_now_add=True)
     
     CATEGORY = [
@@ -33,6 +34,12 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def total_likes(self):
+        return self.likes.count()
+
+    def total_dislikes(self):
+        return self.dislikes.count()
+
     def get_absolute_url(self):
         return reverse('home')
 
@@ -45,12 +52,14 @@ class Comment(models.Model):
         on_delete=models.CASCADE, 
     )
     name = models.CharField(max_length=200)
-    body = models.TextField()
+    body = RichTextField()
     date_added=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '%s - %s' % (self.post.title, self.name)
     
+    class Meta:
+        ordering = ['-date_added']
     
     
 

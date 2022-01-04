@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import BlogListView, BlogDetailView, AddPostView, CustomLoginView, UpdatePostView, DeletePostView, UserRegisterView, CategoryView, AddCommentView, ProfileView, CreateProfileView, EditProfileView
+from .views import BlogListView, BlogDetailView, AddPostView, CustomLoginView, UpdatePostView, DeletePostView, UserRegisterView, CategoryView, AddCommentView, ProfileView, CreateProfileView, EditProfileView, LikeView, DislikeView
 
 from django.contrib.auth.views import LogoutView
 
@@ -17,4 +17,6 @@ urlpatterns = [
     path('profile/<int:pk>/', ProfileView.as_view(), name="profile"),
     path('create_profile/',CreateProfileView.as_view(), name='create_profile'),
     path('edit_profile/<int:pk>/',EditProfileView.as_view(), name='edit_profile'),
+    path('like/<int:pk>', LikeView , name='like_post'),
+    path('dislike/<int:pk>', DislikeView , name='dislike_post'),
 ]
